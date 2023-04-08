@@ -1,14 +1,15 @@
 import fs from 'fs/promises';
 import path from 'path';
 import {fileURLToPath} from 'url'
+import {checkFileExists} from "./checkExist.js"
 
 const url = fileURLToPath(import.meta.url)
 const srcfile = path.join(path.dirname(url),'files','wrongFilename.txt')
 const dstfile = path.join(path.dirname(url),'files','properFilename.md')
 const rename = async () => {
     try {
-        const srcexist = await checkPathExists(srcfile)
-        const dstexist = await checkPathExists(dstfile)
+        const srcexist = await checkFileExists(srcfile)
+        const dstexist = await checkFileExists(dstfile)
         if (!srcexist || dstexist) {
             throw new Error('FS operation failed')
         }
@@ -21,9 +22,3 @@ const rename = async () => {
 };
 
 await rename();
-
-async function checkPathExists(path) {
-    return fs.stat(path)
-        .then((res) => res.isFile())
-        .catch((err) => err.code === 'ENOENT' ? false : err);
-}

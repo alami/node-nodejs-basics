@@ -1,6 +1,7 @@
 import fs from 'fs/promises';
 import path from 'path';
 import {fileURLToPath} from 'url'
+import {checkPathExists} from "./checkExist.js"
 
 const url = fileURLToPath(import.meta.url)
 const srcdir = path.join(path.dirname(url),'files')
@@ -19,8 +20,3 @@ const copy = async () => {
 };
 
 await copy();
-function checkPathExists(path) {
-    return fs.stat(path)
-        .then((res) => res.isDirectory())
-        .catch((err) => err.code === 'ENOENT' ? false : err);
-}

@@ -8,7 +8,7 @@ const list = async () => {
     try {
         const direxist = await checkPathExists(srcdir)
         if (!direxist)
-            console.log('Error: FS operation failed!')
+            throw new Error('FS operation failed')
         else {
             const files = await fs.readdir(srcdir)
             files.forEach(file => {

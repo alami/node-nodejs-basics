@@ -10,7 +10,7 @@ const rename = async () => {
         const srcexist = await checkPathExists(srcfile)
         const dstexist = await checkPathExists(dstfile)
         if (!srcexist || dstexist) {
-            console.log('Error: FS operation failed!')
+            throw new Error('FS operation failed')
         }
         else {
             await fs.rename(srcfile, dstfile);

@@ -9,7 +9,7 @@ const remove = async () => {
     try {
         const srcexist = await checkPathExists(srcfile)
         if (!srcexist) {
-            console.log('Error: FS operation failed!')
+            throw new Error('FS operation failed')
         }
         else {
             await fs.unlink(srcfile);

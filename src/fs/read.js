@@ -7,7 +7,7 @@ const srcfile = path.join(path.dirname(url),'files','fileToRead.txt')
 const read = async () => {
     const srcexist = await checkPathExists(srcfile)
     if (!srcexist) {
-        console.log('Error: FS operation failed!')
+        throw new Error('FS operation failed')
     }
     else {
         const file = await fs.readFile(srcfile,"utf8");
